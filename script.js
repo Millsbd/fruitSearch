@@ -1,5 +1,6 @@
 const input = document.querySelector('#fruit');
 const suggestions = document.querySelector('.suggestions ul');
+const sugList = document.querySelector('.list');
 
 const fruit = ['Apple', 'Apricot', 'Avocado 🥑', 'Banana', 'Bilberry', 'Blackberry', 'Blackcurrant', 'Blueberry', 'Boysenberry', 'Currant', 'Cherry', 'Coconut', 'Cranberry', 'Cucumber', 'Custard apple', 'Damson', 'Date', 'Dragonfruit', 'Durian', 'Elderberry', 'Feijoa', 'Fig', 'Gooseberry', 'Grape', 'Raisin', 'Grapefruit', 'Guava', 'Honeyberry', 'Huckleberry', 'Jabuticaba', 'Jackfruit', 'Jambul', 'Juniper berry', 'Kiwifruit', 'Kumquat', 'Lemon', 'Lime', 'Loquat', 'Longan', 'Lychee', 'Mango', 'Mangosteen', 'Marionberry', 'Melon', 'Cantaloupe', 'Honeydew', 'Watermelon', 'Miracle fruit', 'Mulberry', 'Nectarine', 'Nance', 'Olive', 'Orange', 'Clementine', 'Mandarine', 'Tangerine', 'Papaya', 'Passionfruit', 'Peach', 'Pear', 'Persimmon', 'Plantain', 'Plum', 'Pineapple', 'Pomegranate', 'Pomelo', 'Quince', 'Raspberry', 'Salmonberry', 'Rambutan', 'Redcurrant', 'Salak', 'Satsuma', 'Soursop', 'Star fruit', 'Strawberry', 'Tamarillo', 'Tamarind', 'Yuzu'];
 const newFruit = fruit.map(function(idx){
@@ -16,14 +17,16 @@ function search(str) {
 		return str.includes(look);
 	}))
 	return results;
+	
 }
 // returns an array of all fruits matching the input string
 
-function showList(arr){
+function showList(arr, element){
 	for (let val of arr );{
 		const liElement = document.createElement('li');
 		liElement.innerText = val;
-		suggestions.appendChild(liElement);
+		element.appendChild(liElement);
+		// return element;
 
 		// the val of the for of loop is not defined (can't be accessed) when I try to use it to set the li value at JS25
 		
@@ -32,9 +35,9 @@ function showList(arr){
 
 input.addEventListener('input', function(){
 	const userInput = search(input.value);
-	console.log(userInput);
+	showList(userInput, sugList);
+	// console.log(userInput);
 // is logging the reduced array based on user input when logged to console
-
 })
 
 
@@ -55,3 +58,15 @@ function useSuggestion(e) {
 
 input.addEventListener('keyup', searchHandler);
 suggestions.addEventListener('click', useSuggestion);
+
+// function createItems (array, element){
+// 	if(array){
+// 		element.innerHtml = '';
+// 		let innerElement = '';
+// 		for (let itm of array) {
+// 			innerElement += `<li>${itm}</li>`;
+// 		};
+// 		element.innerHtml = innerElement;
+// 		return element;
+// 	}
+// }
