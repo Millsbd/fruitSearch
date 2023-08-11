@@ -24,6 +24,8 @@ function showList(arr){
 		const liElement = document.createElement('li');
 		liElement.innerText = val;
 		suggestions.appendChild(liElement);
+
+		// the val of the for of loop is not defined (can't be accessed) when I try to use it to set the li value at JS25
 		
 	}
 }
@@ -31,10 +33,10 @@ function showList(arr){
 input.addEventListener('input', function(){
 	const userInput = search(input.value);
 	console.log(userInput);
-
+// is logging the reduced array based on user input when logged to console
 
 })
-// Works to narrow down the returned array as userInput
+
 
 function searchHandler(e) {
 	search('e.target');
