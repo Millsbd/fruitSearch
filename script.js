@@ -83,18 +83,18 @@ const fruit = [
   "Tamarind",
   "Yuzu",
 ];
-
+// // Is there a setting which will let me not have this vertical list happen when I use the prettier formatter?
 
 
 function createItems(array, element) {
   if (array) {
-    element.innerHtml = "";
+    element.innerHTML = "";
     let innerElement = "";
     for(let itm of array){
       innerElement += `<li>${itm}</li>`
     }
-    element.innerHtml = innerElement;
-    console.log(innerElement);
+    element.innerHTML = innerElement;
+    // console.log(innerElement);
   }
 }
 // accepts an array and an element, checks the array and resets the html of the element. Loops through the array and for each item adds an li with the item name. Sets the innerHTML of the element equal to this new li. 
@@ -106,74 +106,86 @@ function filterArray(array, search) {
 }
 // accepts an array and a string (the search input), filters the array and only returns the values which include the search string. Takes case out of the equation. 
 
-input.addEventListener('input', function(){
+input.addEventListener('input', () => {
 	const filterData = filterArray(fruit, input.value);
-	console.log(filterData)
+	// console.log(filterData)
 	createItems(filterData, sugList);
 });
 
 // whenver something is typed in the searchbox triggers a function which assigns a varialble to the returned array from the filter array function. passes that array into the createItems function, which should make the list of possible searches below the box. 
 
-// ***This is not creating items, if I console.log filterData I see the array I want to make the list out of but nothing actually gets created***
+suggestions.addEventListener('mouseover', function(){
+  suggestions.setAttribute('class', 'ul li:hover');
+})
+// **REFACTOR AS ARROW FUNCTION**
+suggestions.addEventListener('mouseover', () => suggestions.setAttribute('class', 'ul: li:hover'));
+
+suggestions.addEventListener('click', function useSuggestion(evt){
+  let seletctedVal = evt.target.textContent;
+  input.value = seletctedVal;
+  
+})
+// ***Trying to get the input value to be the clicked value, shows the li in the console correclty with the console.log but changed the input to 0 not the clicked fruit. Needed to do textContent instead of value, the value was giving the full li where the textContent is giving just the text. 
+  
 
 // **ALTENRNATE METHOD***
+// ***ARROW REFACTORING PRACTICE***
 
-// const newFruit = fruit.map(function (idx) {
-//   return idx.toLowerCase();
-// });
-// // need to change array to lowercase to match search function
+const newFruit = fruit.map(function (idx) {
+  return idx.toLowerCase();
+});
 
-// function search(str) {
-//   const results = [];
-//   const look = str.toLowerCase();
-//   // change entered string to lowercase to match newFruit array
-//   results = [
-//     ...newFruit.filter(function (str) {
-//       return str.includes(look);
-//     }),
-//   ];
-//   return results;
-// }
+const newArFruit = fruit.map(idx => idx.toLowerCase());
+// need to change array to lowercase to match search function
 
-// // returns an array of all fruits matching the input string
+function search(str) {
+  let results = [];
+  const look = str.toLowerCase();
+  // change entered string to lowercase to match newFruit array
+  results = [
+    ...newFruit.filter(function (str) {
+      return str.includes(look);
+    }),
+  ];
+  return results;
+}
 
-// function showList(arr, element) {
-//   if (arr) {
-//     element.innerText = "";
-//     for (let val of arr) {
-//       const liElement = document.createElement("li");
-//       liElement.innerText = val;
-//       element.appendChild(liElement);
-//       return element;
+let arSearch = (str) => {
+  let arr = [];
+  const lc = str.toLowerCase();
+  arr = [
+    ...newArFruit.filter(str => str.includes(lc))
+  ]
+  return arr;
+}
 
-//       // the val of the for of loop is not defined (can't be accessed) when I try to use it to set the li value at JS25
-//     }
-//   }
-// }
+// returns an array of all fruits matching the input string by spreading the lowercased fruit array, adding it into a new empty array, and filtering it to see what is included in the lower cased string. 
 
-// input.addEventListener("input", function () {
-//   const userInput = search(input.value);
-//   console.log(userInput);
-//   showList(userInput, sugList);
+let makeElys = (arr,element) => {
+  if(arr){
+    element.innerText = "";
+    for(let val of arr) {
+      const liElement = document.createElement('li');
+      liElement.innerText = val;
+      element.appendChild(liElement);
+    }
+  }
 
-//   // is logging the reduced array based on user input when logged to console
-// });
+}
 
-// function searchHandler(e) {
-//   search("e.target");
-//   // console.log(results);
-//   // TODO ** Search Function in Here **
-// }
+input.addEventListener("input", function () {
+  const userInput = search(input.value);
+  console.log(userInput);
+  showList(userInput, sugList);
 
-// function showSuggestions(results, inputVal) {
-//   // TODO
-// }
+  // is logging the reduced array based on user input when logged to console
+});
 
-// function useSuggestion(e) {
-//   // TODO
-// }
+input.addEventListener('input', () => {
+  const userData = arSearch(input.value);
+  makeElys(userData, sugList);
+})
 
-// input.addEventListener("keyup", searchHandler);
-// suggestions.addEventListener("click", useSuggestion);
+
 
 

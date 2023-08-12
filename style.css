@@ -2,6 +2,7 @@
   box-sizing: border-box;
   padding: 0;
   margin: 0;
+  
 }
 
 :focus {
@@ -15,14 +16,17 @@ body {
   justify-content: center;
   align-items: center;
   background-color: aqua;
+  background-image: linear-gradient(to right,rgb(255, 162, 0), rgba(255, 0, 0, 0.799));
 }
 
 input {
   padding: 25px 15px;
   width: calc(100% - 30px);
+  border: none;
   border-radius: 5px;
   font-weight: bold;
   text-align: center;
+  background-image: linear-gradient(to right,yellow, rgba(255, 0, 0, 0.879));
 }
 
 .search-container {
@@ -48,9 +52,9 @@ ul {
   max-height: 300px;
   text-align: center;
   font-weight: bold;
-  background-color: whitesmoke;
   border-radius: 5px;
   width: calc(100% - 30px);
+  overflow-y: auto;
 }
 ul.has-suggestions {
   /* TODO */
@@ -60,7 +64,7 @@ ul li {
   cursor: pointer;
 }
 ul li:hover {
-  /* TODO */
+  background-color: lightsalmon;
 }
 
 input {
