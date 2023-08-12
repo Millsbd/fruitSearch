@@ -15,7 +15,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: aqua;
   background-image: linear-gradient(to right,rgb(255, 162, 0), rgba(255, 0, 0, 0.799));
 }
 
